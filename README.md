@@ -17,3 +17,9 @@ poetry run fastapi dev main.py
 cd frontend
 bun dev
 ```
+
+## Run app
+
+```bash
+docker-compose up --build
+```
