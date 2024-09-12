@@ -43,7 +43,6 @@ const fetchData = async () => {
     const response = await fetch('http://localhost:8000/data')
 
     chartData.value = await response.json()
-    console.log(chartData.value)
   } catch (error) {
     console.error('Error fetching data:', error)
   }

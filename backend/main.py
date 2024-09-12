@@ -3,7 +3,10 @@ from fastapi.middleware.cors import CORSMiddleware
 import random
 
 app = FastAPI(
-    
+    title="UJEP uchazeči PŘF",
+    redoc_url=None,
+    docs_url="/",
+    summary="API pro frontend aplikace Uchazeči PŘF",
 )
 
 app.add_middleware(

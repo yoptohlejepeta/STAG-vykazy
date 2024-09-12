@@ -20,12 +20,10 @@
     </table>
   </div>
   <p v-else>No books yet.</p>
-
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-
 
 const books = ref<{ name: string; author: string }[]>([])
 
