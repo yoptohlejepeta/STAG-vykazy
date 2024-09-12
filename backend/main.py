@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-import random
+
+from routes import router
 
 app = FastAPI(
     title="UJEP uchazeči PŘF",
@@ -25,11 +26,5 @@ def get_books():
         {"name": "One Hundred Years of Solitude", "author": "Gabriel García Márquez"},
     ]
 
-@app.get("/data")
-def get_graph_data():
-    return {
-        "labels": ["January", "February", "March", "April", "May", "June", "July"],
-        "datasets": [{
-        "data": [random.randint(1, 100) for _ in range(7)]
-    }]
-    }
+
+app.include_router(router.router)
