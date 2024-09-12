@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-
+import random
 
 app = FastAPI(
     
@@ -22,9 +22,11 @@ def get_books():
         {"name": "One Hundred Years of Solitude", "author": "Gabriel García Márquez"},
     ]
 
-@app.get("/graph_data")
+@app.get("/data")
 def get_graph_data():
     return {
         "labels": ["January", "February", "March", "April", "May", "June", "July"],
-        "data": [65, 59, 80, 81, 56, 55, 40],
+        "datasets": [{
+        "data": [random.randint(1, 100) for _ in range(7)]
+    }]
     }
