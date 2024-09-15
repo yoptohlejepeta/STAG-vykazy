@@ -1,44 +1,29 @@
 <script setup lang="ts">
-import Tabs from 'primevue/tabs'
-import TabList from 'primevue/tablist'
-import Tab from 'primevue/tab'
-import TabPanels from 'primevue/tabpanels'
-import TabPanel from 'primevue/tabpanel'
+import TabMenu from 'primevue/tabmenu'
 import { RouterView } from 'vue-router'
 </script>
 
 <template>
   <header class="pb-5">
-    <h1 class="text-9xl mb-4 pt-4 text-center">Uchazeči UJEP</h1>
-    <h2
-      class="text-7xl font-mono mb-4 pb-3 text-center text-transparent bg-clip-text bg-gradient-to-r to-emerald-600 from-sky-400"
-    >
-      PŘF
-    </h2>
-    <Tabs value="0" class="mb-4">
-      <TabList>
-        <Tab value="0">
-          <router-link to="/books"> Books </router-link>
-        </Tab>
-        <Tab value="1">
-          <router-link to="/graph">Graph</router-link>
-        </Tab>
-        <Tab value="2">
-          <router-link to="/okruhy">Okruhy</router-link>
-        </Tab>
-      </TabList>
-      <TabPanels>
-        <TabPanel value="0"> </TabPanel>
-        <TabPanel value="1"> </TabPanel>
-        <TabPanel value="2"> </TabPanel>
-      </TabPanels>
-    </Tabs>
+    <!-- <TabMenu :model="items">
+    <template #item="{ item, props }">
+        <router-link v-if="item.route" v-slot="{ href, navigate }" :to="item.route" custom>
+            <a v-ripple :href="href" v-bind="props.action" @click="navigate">
+                <span v-bind="props.icon" />
+                <span v-bind="props.label">{{ item.label }}</span>
+            </a>
+        </router-link>
+        <a v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">
+            <span v-bind="props.icon" />
+            <span v-bind="props.label">{{ item.label }}</span>
+        </a>
+    </template>
+</TabMenu> -->
   </header>
   <main class="container mx-auto">
     <RouterView />
   </main>
 </template>
-
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap');
@@ -47,5 +32,4 @@ import { RouterView } from 'vue-router'
 h1 {
   font-family: 'Roboto Slab', sans-serif; /* Modern and clean font */
 }
-
 </style>

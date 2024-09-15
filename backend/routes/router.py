@@ -1,18 +1,29 @@
-from pathlib import Path
+from fastapi import APIRouter, Depends
 
-import polars as pl
-from fastapi import APIRouter
+from database import get_db
+from models.project import Project
+from schemas.project import ProjectBase
 
-router = APIRouter(prefix="/data")
-
-
-data_path = Path.joinpath(Path(__file__).parent, "../data/uchazeci_transformed.csv")
-data = pl.read_csv(data_path)
+router = APIRouter(prefix="/projects")
 
 
-@router.get("/okruhy")
-def endpoint_okruhy() -> list[dict]:
-    """Vrátí pivot table uchažecích podle okruhů."""
-    okruhy_df = data.filter(pl.col("OKRUH1").is_not_null()).select(["OKRUH1", "OKRUH2"]).group_by(["OKRUH1", "OKRUH2"]).count().sort("OKRUH1")
+@router.post("", response_model=ProjectBase)
+def create_project(project: ProjectBase, db=Depends(get_db)):
+    project = Project(**project.model_dump())
+    db.add(project)
+    db.commit()
+    db.refresh(project)
 
-    return okruhy_df.to_dicts()
+    return project
+
+
+@router.get("/{project_id}", response_model=ProjectBase)
+def read_project(project_id: int, db=Depends(get_db)):
+    project = db.query(Project).filter(Project.id == project_id).first()
+    return project
+
+
+@router.get("", response_model=list[ProjectBase])
+def read_projects(db=Depends(get_db)):
+    projects = db.query(Project).all()
+    return projects

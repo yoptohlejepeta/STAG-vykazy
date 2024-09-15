@@ -1,13 +1,17 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from database import Base, engine
 from routes import router
 
+Base.metadata.create_all(bind=engine)
+
+
 app = FastAPI(
-    title="UJEP uchazeči PŘF",
+    title="Projects management",
     redoc_url=None,
     docs_url="/",
-    summary="API pro frontend aplikace Uchazeči PŘF",
+    summary="API for managing projects",
 )
 
 app.add_middleware(
@@ -17,14 +21,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-
-@app.get("/books")
-def get_books():
-    return [
-        {"name": "In the Mountains of Madness", "author": "H.P. Lovecraft"},
-        {"name": "One Hundred Years of Solitude", "author": "Gabriel García Márquez"},
-    ]
 
 
 app.include_router(router.router)
